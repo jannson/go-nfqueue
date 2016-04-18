@@ -8,6 +8,7 @@
 #define QUEUE_MAXLEN 4096
 
 //gcc nfq_demo.c -o nfq_demo -lnfnetlink -lnetfilter_queue
+//arm-fw867-linux-uclibcgnueabi-gcc nfq_demo.c -o nfq_demo -I/home/xiaobao/source/nf/include -L/home/xiaobao/source/nf/lib  -lnfnetlink -lnetfilter_queue
 
 static int nfq_cb(struct nfq_q_handle *qh, struct nfgenmsg *msg, struct nfq_data *nfa, void *data) {
     return 0;
@@ -21,22 +22,22 @@ int nfq_demo(void) {
 
     /* here, failed on nfq_unbind_pf */
     if (nfq_unbind_pf(h, AF_INET) < 0) {
-        printf("nfq_unbind_pf failed\n");
+        printf("nfq_unbind_pf failed1\n");
         return -1;
     }
 
     if (nfq_unbind_pf(h, AF_INET6) < 0) {
-        printf("nfq_unbind_pf failed\n");
+        printf("nfq_unbind_pf failed2\n");
         return -1;
     }
 
     if (nfq_bind_pf(h, AF_INET) < 0) {
-        printf("nfq_bind_pf failed\n");
+        printf("nfq_bind_pf failed3\n");
         return -1;
     }
 
     if (nfq_bind_pf(h, AF_INET6) < 0) {
-        printf("nfq_bind_pf failed\n");
+        printf("nfq_bind_pf failed4\n");
         return -1;
     }
 
