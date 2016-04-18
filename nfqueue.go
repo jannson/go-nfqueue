@@ -22,7 +22,7 @@ type nfQueue struct {
 	Timeout        time.Duration
 	qid            uint16
 	h              *C.struct_nfq_handle
-	qh             *C.struct_q_handle
+	qh             *C.struct_nfq_q_handle
 	fd             int
 	lk             sync.Mutex
 
@@ -84,7 +84,9 @@ func (this *nfQueue) init() {
 		panic("nfq_bind_pf(AF_INET6) failed.")
 	}
 
-	if this.qh, err = C.create_queue(this.h, C.uint16_t(this.qid), unsafe.Pointer(this)); err != nil || this.qh == nil {
+	//if this.qh, err = C.create_queue(this.h, C.uint16_t(this.qid), unsafe.Pointer(this)); err != nil || this.qh == nil
+	this.qh = C.create_queue(this.h, C.uint16_t(this.qid), unsafe.Pointer(this))
+	if this.qh == nil {
 		C.nfq_close(this.h)
 		panic(err)
 	}
