@@ -1,8 +1,8 @@
 package nfqueue
 
 /*
-#cgo LDFLAGS: -lnetfilter_queue
-#cgo CFLAGS: -Wall
+#cgo LDFLAGS: -L/home/xiaobao/source/nf/lib -lnetfilter_queue
+#cgo CFLAGS: -I/home/xiaobao/source/nf/include -Wall
 #include "nfqueue.h"
 */
 import "C"
