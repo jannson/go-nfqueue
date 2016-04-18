@@ -69,20 +69,20 @@ func (this *nfQueue) init() {
 		this.Destroy()
 		panic("nfq_unbind_pf(AF_INET) failed, are you running root?.")
 	}
-	if C.nfq_unbind_pf(this.h, C.AF_INET6) < 0 {
-		this.Destroy()
-		panic("nfq_unbind_pf(AF_INET6) failed.")
-	}
+	//if C.nfq_unbind_pf(this.h, C.AF_INET6) < 0 {
+	//	this.Destroy()
+	//	panic("nfq_unbind_pf(AF_INET6) failed.")
+	//}
 
 	if C.nfq_bind_pf(this.h, C.AF_INET) < 0 {
 		this.Destroy()
 		panic("nfq_bind_pf(AF_INET) failed.")
 	}
 
-	if C.nfq_bind_pf(this.h, C.AF_INET6) < 0 {
-		this.Destroy()
-		panic("nfq_bind_pf(AF_INET6) failed.")
-	}
+	//if C.nfq_bind_pf(this.h, C.AF_INET6) < 0 {
+	//	this.Destroy()
+	//	panic("nfq_bind_pf(AF_INET6) failed.")
+	//}
 
 	//if this.qh, err = C.create_queue(this.h, C.uint16_t(this.qid), unsafe.Pointer(this)); err != nil || this.qh == nil
 	this.qh = C.create_queue(this.h, C.uint16_t(this.qid), unsafe.Pointer(this))

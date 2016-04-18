@@ -11,14 +11,14 @@
 #include <linux/ip.h>
 #include <linux/tcp.h>
 #include <linux/udp.h>
-#include <linux/ipv6.h>
+//#include <linux/ipv6.h>
 #include <linux/netfilter.h>
 #include <libnetfilter_queue/libnetfilter_queue.h>
 
 // extern int nfq_callback(uint8_t version, uint8_t protocol, unsigned char *saddr, unsigned char *daddr,
 // 						uint16_t sport, uint16_t dport, unsigned char * extra, void* data);
 
-int nfqueue_cb_new(struct nfq_q_handle *qh, struct nfgenmsg *nfmsg, struct nfq_data *nfa, void *data); 
+int nfqueue_cb_new(struct nfq_q_handle *qh, struct nfgenmsg *nfmsg, struct nfq_data *nfa, void *data);
 void loop_for_packets(struct nfq_handle *h);
 
 static inline struct nfq_q_handle * create_queue(struct nfq_handle *h, uint16_t num, void *data) {
