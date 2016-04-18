@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <unistd.h>
 #include <sys/types.h>
+ #include <pwd.h>
 #include <sys/socket.h>
 #include <sys/time.h> /* timeval */
 #include <arpa/inet.h>
@@ -55,7 +56,18 @@ int nfq_demo(void) {
 }
 
 int main() {
-    printf("cuid=%d\n", geteuid32);
+ struct passwd *p;
+ uid_t uid;
+
+ if ((p = getpwuid(uid = getuid())) == NULL)
+    perror("getpwuid() error");
+ else {
+    printf("getpwuid returned the following name and directory for
+       your user IDn", (int) uid);
+    printf("pw_name : %s\n", p->pw_name);
+    printf("pw_dir  : %d\n", p->pw_dir);
+ }
+
     nfq_demo();
     return 0;
 }
