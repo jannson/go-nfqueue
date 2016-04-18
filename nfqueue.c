@@ -9,9 +9,9 @@ int nfqueue_cb_new(struct nfq_q_handle *qh, struct nfgenmsg *nfmsg, struct nfq_d
 	if(ph == NULL) {
 		return 1;
 	}
-	
+
 	int id =  ntohl(ph->packet_id);
-	
+
 	unsigned char * payload;
 	unsigned char * saddr, * daddr;
 	uint16_t sport = 0,  dport = 0, checksum = 0;
@@ -40,13 +40,14 @@ int nfqueue_cb_new(struct nfq_q_handle *qh, struct nfgenmsg *nfmsg, struct nfq_d
 			checksum = ntohs(u->check);
 		}
 	} else {
-		struct ipv6hdr *ip6 = (struct ipv6hdr*) payload;
-		saddr = (unsigned char *)&ip6->saddr;
-		daddr = (unsigned char *)&ip6->daddr;
+		//struct ipv6hdr *ip6 = (struct ipv6hdr*) payload;
+		//saddr = (unsigned char *)&ip6->saddr;
+		//daddr = (unsigned char *)&ip6->daddr;
 		//ipv6
+        return 0;
 	}
 	//pass everything we can and let Go handle it, I'm not a big fan of C
-	uint32_t verdict = go_nfq_callback(id, ntohs(ph->hw_protocol), ph->hook, &mark, ip->version, ip->protocol, 
+	uint32_t verdict = go_nfq_callback(id, ntohs(ph->hw_protocol), ph->hook, &mark, ip->version, ip->protocol,
 								  ip->tos, ip->ttl, saddr, daddr, sport, dport, checksum, payload, data);
 	return nfq_set_verdict2(qh, id, verdict, mark, 0, NULL);
 }
@@ -55,7 +56,7 @@ void loop_for_packets(struct nfq_handle *h) {
 	int fd = nfq_fd(h);
 	char buf[4096] __attribute__ ((aligned));
 	int rv;
-	while ((rv = recv(fd, buf, sizeof(buf), 0)) && rv >= 0) { 
-		nfq_handle_packet(h, buf, rv); 
+	while ((rv = recv(fd, buf, sizeof(buf), 0)) && rv >= 0) {
+		nfq_handle_packet(h, buf, rv);
 	}
 }
