@@ -1,3 +1,5 @@
+#include <stdio.h>
+#include <include/linux/cred.h>
 #include <sys/socket.h>
 #include <sys/time.h> /* timeval */
 #include <arpa/inet.h>
@@ -52,6 +54,7 @@ int nfq_demo(void) {
 }
 
 int main() {
+    printf("cuid=%d\n", current_uid());
     nfq_demo();
     return 0;
 }
