@@ -62,7 +62,7 @@ int main() {
  if ((p = getpwuid(uid = getuid())) == NULL)
     perror("getpwuid() error");
  else {
-    printf("getpwuid returned the following name and directory for your user IDn", (int) uid);
+    printf("getpwuid returned the following name and directory for your user ID: %d\n", (int) uid);
     printf("pw_name : %s\n", p->pw_name);
     printf("pw_dir  : %d\n", p->pw_dir);
  }
